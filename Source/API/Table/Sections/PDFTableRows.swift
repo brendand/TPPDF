@@ -38,7 +38,9 @@ public class PDFTableRows {
         set {
             assert(newValue.count <= rows.count, "Can not access more rows than available")
             rows.enumerated().forEach { (rowIdx, row) in
-                row.content = newValue[rowIdx]
+                if rowIdx < newValue.count {
+                    row.content = newValue[rowIdx]
+                }
             }
         }
     }

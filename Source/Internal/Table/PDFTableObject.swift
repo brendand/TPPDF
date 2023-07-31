@@ -106,7 +106,7 @@ internal class PDFTableObject: PDFRenderObject {
         var headerCells: [PDFTableCalculatedCell] = []
         if table.showHeadersOnEveryPage {
             var rowIdx = 0
-            while rowIdx < table.size.rows && cells[rowIdx].allSatisfy({ $0.type == .rowHeader || $0.type == .header }) {
+            while rowIdx < table.size.rows && rowIdx < cells.count && cells[rowIdx].allSatisfy({ $0.type == .rowHeader || $0.type == .header }) {
                 headerCells += cells[rowIdx]
                 rowIdx += 1
             }

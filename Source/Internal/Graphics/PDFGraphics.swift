@@ -179,7 +179,7 @@ internal enum PDFGraphics {
         let resizeFactor = factor.isZero ? 0.2 : factor
 
         // If there is a floating point error, e.g. 24.000000000000004, then UIKit will use the next higher integer value, but AppKit does not
-        let size = CGSize(width: floor(frame.width * resizeFactor),
+        var size = CGSize(width: floor(frame.width * resizeFactor),
                           height: floor(frame.height * resizeFactor))
 
         #if os(iOS)
@@ -190,6 +190,12 @@ internal enum PDFGraphics {
 
         return finalImage ?? image
         #elseif os(macOS)
+        if size.height == 0 {
+            size.height = 1
+        }
+        if size.width == 0 {
+            size.width = 1
+        }
         let finalImage = NSImage(size: size)
         finalImage.lockFocus()
         let context = NSGraphicsContext.current!
