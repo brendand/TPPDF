@@ -117,11 +117,13 @@ internal class PDFTableObject: PDFRenderObject {
                 rowIdx = table.size.rows - 1
             }
 
-            headerHeight = cells[rowIdx].reduce(0, { (prev, calcCell) in
-                max(prev, calcCell.frames.cell.minY)
-            }) - headerCells.reduce(CGFloat.greatestFiniteMagnitude, { (prev, calcCell) in
-                min(prev, calcCell.frames.cell.minY)
-            })
+            if rowIdx < cells.count {
+                headerHeight = cells[rowIdx].reduce(0, { (prev, calcCell) in
+                    max(prev, calcCell.frames.cell.minY)
+                }) - headerCells.reduce(CGFloat.greatestFiniteMagnitude, { (prev, calcCell) in
+                    min(prev, calcCell.frames.cell.minY)
+                })
+            }
         }
 
         // Create render objects
